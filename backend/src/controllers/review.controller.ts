@@ -14,8 +14,18 @@ export class ReviewController {
     return ok(await this.reviewService.findAll());
   }
 
+  @Get('pending')
+  async findPendingAssets() {
+    return ok(await this.reviewService.findPendingAssets());
+  }
+
+  @Get('assets/:assetId')
+  async findByAssetId(@Param('assetId') assetId: string) {
+    return ok(await this.reviewService.findByAssetId(assetId));
+  }
+
   @Post('assets/:assetId')
   async review(@Param('assetId') assetId: string, @Body() payload: { reviewerId: string; result: ReviewResult; comment?: string }) {
-    return ok(await this.reviewService.review(assetId, payload), '审核已记录');
+    return ok(await this.reviewService.review(assetId, payload), '审核已完成');
   }
 }

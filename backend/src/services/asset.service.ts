@@ -48,6 +48,15 @@ export class AssetService {
     return this.assetModel.findByIdAndUpdate(id, payload, { new: true }).exec();
   }
 
+  async submitForReview(id: string) {
+    const asset = await this.assetModel.findById(id).exec();
+    if (!asset) throw new NotFoundException('素材不存在');
+    if (asset.status !== AssetStatus.Draft) {
+      throw new BadRequestException('只有草稿状态的素材才能提交审核');
+    }
+    return this.assetModel.findByIdAndUpdate(id, { status: AssetStatus.PendingReview }, { new: true }).exec();
+  }
+
   publish(id: string) {
     return this.assetModel.findByIdAndUpdate(id, { status: AssetStatus.Published }, { new: true }).exec();
   }

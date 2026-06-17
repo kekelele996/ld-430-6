@@ -6,6 +6,13 @@ import { UserRole } from '../types/enums';
 export class RbacMiddleware implements NestMiddleware {
   use(req: Request & { user?: { role: UserRole } }, _res: Response, next: NextFunction) {
     const routePath = req.originalUrl ?? req.url ?? req.path;
+
+    if (routePath.includes('/reviews') && req.method !== 'GET') {
+      if (req.user?.role !== UserRole.Admin && req.user?.role !== UserRole.Moderator) {
+        throw new ForbiddenException('只有管理员和审核员才能执行审核操作');
+      }
+    }
+
     if (req.method === 'POST' && routePath.includes('/downloads')) {
       return next();
     }

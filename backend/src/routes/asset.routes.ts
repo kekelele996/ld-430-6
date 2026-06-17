@@ -1,6 +1,6 @@
 export const ASSET_ROUTES = {
   root: 'assets',
   detail: ':id',
-  publish: ':id/publish',
+  submitReview: ':id/submit-review',
   archive: ':id/archive',
 };

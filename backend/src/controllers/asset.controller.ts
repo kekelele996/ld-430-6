@@ -31,9 +31,9 @@ export class AssetController {
     return ok(await this.assetService.update(id, payload), '素材已更新');
   }
 
-  @Post(ASSET_ROUTES.publish)
-  async publish(@Param('id') id: string) {
-    return ok(await this.assetService.publish(id), '素材已发布');
+  @Post(ASSET_ROUTES.submitReview)
+  async submitForReview(@Param('id') id: string) {
+    return ok(await this.assetService.submitForReview(id), '素材已提交审核');
   }
 
   @Post(ASSET_ROUTES.archive)

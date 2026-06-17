@@ -19,6 +19,7 @@ export enum LicenseType {
 
 export enum AssetStatus {
   Draft = 'Draft',
+  PendingReview = 'PendingReview',
   Published = 'Published',
   Archived = 'Archived',
   Flagged = 'Flagged',
